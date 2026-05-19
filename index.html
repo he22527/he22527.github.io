@@ -54,29 +54,84 @@
     #tab-nav::-webkit-scrollbar { display:none; }
     .ws-preline { white-space: pre-line; }
     a { text-decoration: none; }
+
+    /* ── Mobile overrides ── */
+    @media (max-width: 640px) {
+      /* Hero */
+      header { min-height: 420px !important; }
+      header h1 { font-size: 2.5rem !important; }
+      header p  { font-size: 1rem !important; letter-spacing: 0.08em !important; }
+      .hero-date { font-size: 0.75rem !important; padding: 0.5rem 1.25rem !important; margin-bottom: 1.5rem !important; }
+
+      /* Main padding */
+      main { padding-left: 1rem; padding-right: 1rem; padding-top: 1rem; }
+
+      /* Tab nav – full width strip */
+      #tab-nav { width: 100% !important; border-radius: 0 !important; margin-top: 0 !important;
+        padding: 0.5rem 0.75rem !important; gap: 0.375rem !important;
+        position: sticky; top: 0; z-index: 50; background: rgba(231,229,228,.97); backdrop-filter:blur(8px); }
+      .tab-btn { padding: 0.45rem 0.85rem !important; font-size: 0.7rem !important; }
+
+      /* Cards – reduce padding */
+      .card-pad { padding: 1.25rem !important; }
+      .p-8 { padding: 1.25rem !important; }
+      .p-10 { padding: 1.25rem !important; }
+
+      /* Schedule – 集合出發 big text smaller */
+      .sched-big { font-size: 1rem !important; }
+
+      /* Maps */
+      .map-frame { height: 260px !important; }
+
+      /* Hiking map stacks below text on mobile – handled by grid */
+
+      /* Eco header */
+      .eco-header { padding: 2.5rem 1.25rem !important; }
+      .eco-header svg { width: 2.5rem; height: 2.5rem; }
+
+      /* Spirit cards grid */
+      .spirit-grid { gap: 0.75rem !important; }
+
+      /* Icebreak image height */
+      .icebreak-h { height: 200px !important; }
+
+      /* Chat panel */
+      #chat-panel { width: calc(100vw - 2rem) !important; right: 0; }
+      #chat-widget { right: 1rem !important; bottom: 1rem !important; }
+
+      /* Village description */
+      .village-desc { font-size: 0.875rem !important; }
+
+      /* Guidelines grid */
+      .guide-grid { grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+
+      /* Venue header card */
+      .venue-head { padding: 1.5rem !important; }
+      .venue-head h2 { font-size: 1.75rem !important; }
+    }
   </style>
 </head>
 <body class="min-h-screen bg-stone-50 font-sans text-gray-800 antialiased">
 
   <!-- ═══ HERO ═══ -->
-  <header class="relative min-h-[580px] flex items-center justify-center overflow-hidden shadow-2xl text-white">
+  <header class="relative flex items-center justify-center overflow-hidden shadow-2xl text-white" style="min-height:580px">
     <div class="absolute inset-0">
       <div class="absolute inset-0 z-10" style="background:linear-gradient(to bottom,rgba(181,74,94,.3),rgba(46,125,50,.5))"></div>
       <img src="https://duk.tw/pQlQLJ.png" alt="Beitou Background" class="w-full h-full object-cover" />
     </div>
     <div class="relative z-20 text-center px-4">
-      <div class="animate-pulse bg-white/20 backdrop-blur-md inline-block px-8 py-3 rounded-2xl font-black mb-10 border border-white/30 shadow-lg text-sm md:text-lg lg:text-xl tracking-widest">
+      <div class="hero-date animate-pulse bg-white/20 backdrop-blur-md inline-block px-8 py-3 rounded-2xl font-black mb-10 border border-white/30 shadow-lg text-sm md:text-lg lg:text-xl tracking-widest">
         2026.05.23 (六)
       </div>
-      <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-2xl">北投初夏漫遊</h1>
-      <p class="text-xl md:text-2xl opacity-95 font-light tracking-[0.15em] italic mb-10" style="font-family:Georgia,serif">綠意 · 美食 · 靈性 · 生命迴響</p>
+      <h1 class="text-4xl md:text-7xl font-bold mb-4 md:mb-6 drop-shadow-2xl">北投初夏漫遊</h1>
+      <p class="text-lg md:text-2xl opacity-95 font-light tracking-[0.1em] md:tracking-[0.15em] italic mb-8 md:mb-10" style="font-family:Georgia,serif">綠意 · 美食 · 靈性 · 生命迴響</p>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-4 py-12 relative" style="z-index:30">
+  <main class="max-w-4xl mx-auto px-3 md:px-4 py-4 md:py-12 relative" style="z-index:30">
 
     <!-- ═══ TAB NAV ═══ -->
-    <div id="tab-nav" class="flex flex-nowrap justify-start md:justify-center gap-2 mb-10 bg-stone-200/50 p-1.5 mx-auto backdrop-blur-md shadow-inner mt-12 overflow-x-auto w-fit" style="border-radius:2.5rem">
+    <div id="tab-nav" class="flex flex-nowrap justify-start md:justify-center gap-2 mb-6 md:mb-10 bg-stone-200/50 p-1.5 mx-auto backdrop-blur-md shadow-inner mt-4 md:mt-12 overflow-x-auto w-full md:w-fit" style="border-radius:2.5rem">
       <button class="tab-btn bg-white text-emerald-600 shadow-md px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap" data-tab="schedule">漫遊行程</button>
       <button class="tab-btn text-gray-500 hover:text-gray-700 px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap" data-tab="kids">親子大放電</button>
       <button class="tab-btn text-gray-500 hover:text-gray-700 px-5 md:px-8 py-2.5 rounded-full text-xs md:text-sm font-bold transition-all duration-300 whitespace-nowrap" data-tab="hiking">結伴軍艦行</button>
@@ -94,7 +149,7 @@
 
         <div class="bg-white rounded-3xl shadow-lg border border-stone-100 p-6 flex items-start">
           <div class="flex flex-col items-center mr-6">
-            <div class="text-emerald-600 font-black text-lg mb-2">10:00</div>
+            <div class="text-emerald-600 font-black text-lg mb-2">09:45</div>
             <div class="w-0.5 min-h-[2.5rem] bg-stone-100"></div>
           </div>
           <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start">
@@ -102,7 +157,10 @@
           </div>
           <div class="flex-1">
             <h4 class="text-xl font-bold mb-1 text-gray-800">集合出發</h4>
-            <p class="text-2xl font-bold text-emerald-800 leading-normal mt-2">新北投站：親子大放電,時代眷村情的集合點，石牌站為走軍艦岩的集合點</p>
+            <p class="sched-big text-base md:text-lg font-bold text-emerald-800 leading-relaxed mt-2 ws-preline">捷運石牌站1號出口（走軍艦岩）
+捷運新北投站1號出口（走親子大放電、時代眷村情）
+10：00 行程說明
+10：15 出發</p>
           </div>
         </div>
 
@@ -116,13 +174,13 @@
           </div>
           <div class="flex-1">
             <h4 class="text-xl font-bold mb-1 text-gray-800">北投探索趣</h4>
-            <p class="text-sm text-gray-500">走訪中心新村回憶眷村情，尋找山中鐵達尼號軍艦岩認識地質,或開啟孩子公園大放電</p>
+            <p class="text-sm text-gray-500">走訪中心新村回憶眷村情，尋找山中鐵達尼號軍艦岩，開啟孩子公園大放電</p>
           </div>
         </div>
 
         <div class="schedule-clickable bg-white rounded-3xl shadow-lg border border-stone-100 p-6 flex items-start cursor-pointer" onclick="setActiveTab('menu')">
           <div class="flex flex-col items-center mr-6">
-            <div class="text-emerald-600 font-black text-lg mb-2">11:30</div>
+            <div class="text-emerald-600 font-black text-lg mb-2">12:00</div>
             <div class="w-0.5 min-h-[2.5rem] bg-stone-100"></div>
           </div>
           <div class="sched-icon bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start transition-all">
@@ -170,14 +228,14 @@
 
         <div class="bg-white rounded-3xl shadow-lg border border-stone-100 p-6 flex items-start">
           <div class="flex flex-col items-center mr-6">
-            <div class="text-emerald-600 font-black text-lg mb-2">16:30</div>
+            <div class="text-emerald-600 font-black text-lg mb-2">15:10</div>
           </div>
           <div class="bg-stone-50 p-4 rounded-2xl flex-shrink-0 text-emerald-500 mr-4 self-start">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
           </div>
           <div class="flex-1">
             <h4 class="text-xl font-bold mb-1 text-gray-800">賦歸</h4>
-            <p class="text-sm text-gray-500">帶著滿滿的共振回憶，平安踏上歸途</p>
+            <p class="text-sm text-gray-500">帶著滿滿的回憶與祝福，平安踏上歸途</p>
           </div>
         </div>
       </div>
@@ -187,7 +245,7 @@
         <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 p-8">
           <h2 class="text-3xl font-black text-orange-600 mb-6 italic">童玩大串連</h2>
           <p class="text-gray-600 leading-relaxed font-bold border-l-4 border-orange-500 pl-3 mb-8">新北投站 ➔ 七虎公園 ➔ 長安公園 ➔ 奇岩一號公園 ➔ 銀光食驗室。</p>
-          <div class="w-full rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 shadow-inner mb-8" style="height:450px">
+          <div class="map-frame w-full rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 shadow-inner mb-8" style="height:450px">
             <iframe src="https://maps.google.com/maps?saddr=新北投捷運站&daddr=七虎公園+to:長安公園+to:奇岩一號公園+to:對味廚房銀光食驗室&t=&z=15&ie=UTF8&iwloc=&output=embed" class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -261,7 +319,7 @@
                 <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </a>
             </div>
-            <div class="md:col-span-5 rounded-2xl overflow-hidden border border-stone-200 shadow-inner bg-stone-50" style="height:480px">
+            <div class="map-frame md:col-span-5 rounded-2xl overflow-hidden border border-stone-200 shadow-inner bg-stone-50" style="height:480px">
               <iframe src="https://www.google.com/maps/embed?pb=!1m34!1m12!1m3!1d28899.45665117456!2d121.49055743073434!3d25.121078976611873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m19!3e2!4m5!1s0x3442af13c84982f5%3A0xa8624a5f97d04ca6!2z55-z54mM5o236YGL56uZIDExMuiHuuWMl-W4guWMl-aKleWNgOadseiPr-ihl-S4gOautQ!3m2!1d25.115004!2d121.5152361!4m5!1s0x3442ae66b383558d%3A0xe96749b2e5c9acdf!2z6LuN6Imm5bKpIDExMuiHuuWMl-W4guWMl-aKleWNgA!3m2!1d25.127308799999998!2d121.5187175!4m5!1s0x3442afdc29784fb9%3A0x7283d133884343ff!2z6aOf5YWJ5qmf5aWH5bKp5bqXIDExMuiHuuWMl-W4guWMl-aKleWNgOW0h-S7gei3r-S4gOautTgw6JmfMeaokw!3m2!1d25.1260692!2d121.5015068!5e0!3m2!1szh-TW!2stw!4v1776634332618!5m2!1szh-TW!2stw" class="w-full h-full border-0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
@@ -303,7 +361,7 @@
                 前往中心新村官網
               </a>
             </div>
-            <div class="w-full rounded-2xl overflow-hidden shadow-2xl bg-stone-100" style="height:400px;border:8px solid white">
+            <div class="map-frame w-full rounded-2xl overflow-hidden shadow-2xl bg-stone-100" style="height:400px;border:8px solid white">
               <iframe src="https://maps.google.com/maps?saddr=新北投捷運站&daddr=北投中心新村&t=&z=16&ie=UTF8&iwloc=&output=embed" class="w-full h-full border-0" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
@@ -398,7 +456,7 @@
       <!-- ═══ ECO ═══ -->
       <div id="tab-eco" class="tab-content">
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-          <div class="bg-emerald-50 px-8 py-16 text-center">
+          <div class="eco-header bg-emerald-50 px-8 py-10 md:py-16 text-center">
             <svg class="w-12 h-12 text-emerald-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
             <p class="text-emerald-700 font-black italic mb-2 text-lg drop-shadow-sm uppercase">享受樹比人多的靜謐自在，伴隨小河悠然流淌的舒暢時光</p>
           </div>
@@ -508,7 +566,7 @@
       <div id="tab-attractions" class="tab-content">
         <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-stone-100 p-8">
           <h2 class="text-3xl font-black text-emerald-800 mb-6 italic">🗺️ 北投景點</h2>
-          <div class="w-full rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 shadow-inner" style="height:500px">
+          <div class="map-frame w-full rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 shadow-inner" style="height:500px">
             <iframe src="https://www.google.com/maps/d/embed?mid=1hdGgOfXGhCfZNb5TYRCTyrq6fOnKMF0&ehbc=2E312F" class="w-full h-full border-0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
