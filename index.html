@@ -547,19 +547,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">在清爽果香與氣泡中觸動靈魂，享受片刻寧靜與舒暢。</p>
           </div>
         </div>
-        <div class="icebreak-card bg-white rounded-[2.5rem] overflow-hidden shadow-xl border border-stone-100 flex flex-col md:flex-row items-center">
-          <div class="w-full md:w-1/2 h-64 md:h-72 overflow-hidden">
-            <img src="image_7f9ba3.png" alt="破冰帶動唱開場" class="icebreak-img w-full h-full object-cover" />
-          </div>
-          <div class="w-full md:w-1/2 p-8 md:p-12">
-            <div class="inline-flex items-center gap-1 bg-orange-50 px-3 py-1 rounded-full text-orange-600 text-xs font-black mb-4">
-              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-              Ice Breaking
-            </div>
-            <h3 class="text-2xl md:text-3xl font-black text-gray-800 mb-4">破冰帶動唱開場</h3>
-            <p class="text-gray-600 leading-relaxed font-medium">透過趣味互動,打開彼此的心門,讓陌生變熟悉為連結。</p>
-          </div>
-        </div>
       </div>
 
       <!-- ═══ ATTRACTIONS ═══ -->
@@ -573,6 +560,61 @@
       </div>
 
     </div><!-- /content area -->
+
+    <!-- ═══ WEATHER + BIBLE ═══ -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+      <!-- 即時天氣 -->
+      <div class="bg-white rounded-3xl shadow-lg border border-stone-100 overflow-hidden">
+        <div class="p-6 text-white" style="background:linear-gradient(135deg,#38bdf8,#1d4ed8)">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-black uppercase tracking-widest opacity-80">即時天氣 · 北投</span>
+            <svg class="w-4 h-4 opacity-70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+          </div>
+          <div class="flex items-center gap-4">
+            <span id="w-emoji" class="text-5xl leading-none">⏳</span>
+            <div>
+              <div id="w-temp" class="text-4xl font-black leading-none">--°C</div>
+              <div class="flex flex-wrap items-center gap-2 mt-1">
+                <span id="w-desc" class="text-sm font-bold opacity-90">載入中…</span>
+                <span id="w-feel" class="text-xs opacity-70"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 grid grid-cols-2 gap-3">
+          <div class="bg-sky-50 rounded-2xl p-3 text-center">
+            <p class="text-[10px] text-sky-400 font-black uppercase tracking-wider mb-1">濕度</p>
+            <p id="w-humidity" class="text-xl font-black text-gray-800">--%</p>
+          </div>
+          <div class="bg-sky-50 rounded-2xl p-3 text-center">
+            <p class="text-[10px] text-sky-400 font-black uppercase tracking-wider mb-1">風速</p>
+            <p id="w-wind" class="text-xl font-black text-gray-800">-- km/h</p>
+          </div>
+        </div>
+        <p id="w-time" class="text-[10px] text-center text-stone-300 pb-3 font-medium">資料來源 Open-Meteo</p>
+      </div>
+
+      <!-- 聖經金句 -->
+      <div class="bg-white rounded-3xl shadow-lg border border-stone-100 overflow-hidden flex flex-col">
+        <div class="p-6 text-white" style="background:linear-gradient(135deg,#f59e0b,#dc2626)">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-widest opacity-80">聖經金句</span>
+            <span class="text-2xl">✝️</span>
+          </div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <p id="bible-text" class="text-gray-700 leading-relaxed text-base italic font-medium mb-4 flex-1"></p>
+          <div class="flex items-center justify-between pt-4 border-t border-stone-100">
+            <p id="bible-ref" class="text-sm text-amber-600 font-black"></p>
+            <button onclick="loadBibleVerse()" class="text-xs text-stone-400 hover:text-amber-500 transition-colors flex items-center gap-1 font-bold">
+              <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              換一句
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ═══ GUIDELINES ═══ -->
     <section class="mt-20">
@@ -655,6 +697,62 @@
   </div>
 
   <script>
+    // ── WEATHER ──
+    const WEATHER_CODES = {
+      0:['☀️','晴朗'],1:['🌤️','大致晴'],2:['⛅','局部多雲'],3:['☁️','陰天'],
+      45:['🌫️','有霧'],48:['🌫️','霧凇'],
+      51:['🌦️','毛毛雨'],53:['🌦️','毛毛雨'],55:['🌧️','毛毛雨'],
+      61:['🌧️','小雨'],63:['🌧️','中雨'],65:['🌧️','大雨'],
+      71:['❄️','小雪'],73:['❄️','中雪'],75:['❄️','大雪'],
+      80:['🌦️','陣雨'],81:['🌦️','陣雨'],82:['⛈️','大陣雨'],
+      85:['🌨️','陣雪'],86:['🌨️','陣雪'],
+      95:['⛈️','雷陣雨'],96:['⛈️','雷雨夾冰雹'],99:['⛈️','強雷雨']
+    };
+    async function loadWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=25.136&longitude=121.501&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,relative_humidity_2m&timezone=Asia%2FTaipei');
+        const d = await res.json();
+        const c = d.current;
+        const [emoji, desc] = WEATHER_CODES[c.weather_code] || ['🌡️','未知'];
+        document.getElementById('w-emoji').textContent = emoji;
+        document.getElementById('w-temp').textContent = Math.round(c.temperature_2m) + '°C';
+        document.getElementById('w-feel').textContent = '體感 ' + Math.round(c.apparent_temperature) + '°C';
+        document.getElementById('w-desc').textContent = desc;
+        document.getElementById('w-humidity').textContent = c.relative_humidity_2m + '%';
+        document.getElementById('w-wind').textContent = Math.round(c.wind_speed_10m) + ' km/h';
+        document.getElementById('w-time').textContent = '更新：' + new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'});
+      } catch(e) {
+        document.getElementById('w-emoji').textContent = '⚠️';
+        document.getElementById('w-temp').textContent = '--';
+        document.getElementById('w-desc').textContent = '無法取得天氣';
+      }
+    }
+
+    // ── BIBLE VERSE ──
+    const BIBLE_VERSES = [
+      ['約翰福音 3:16','神愛世人，甚至將他的獨生子賜給他們，叫一切信他的，不至滅亡，反得永生。'],
+      ['腓立比書 4:13','我靠著那加給我力量的，凡事都能做。'],
+      ['詩篇 23:1','耶和華是我的牧者，我必不至缺乏。'],
+      ['以賽亞書 40:31','但那等候耶和華的，必重新得力；他們必如鷹展翅上騰，他們奔跑卻不困倦，行走卻不疲乏。'],
+      ['耶利米書 29:11','耶和華說：我知道我向你們所懷的意念，是賜平安的意念，不是降災禍的意念，要叫你們末後有指望。'],
+      ['羅馬書 8:28','我們曉得萬事都互相效力，叫愛神的人得益處，就是按他旨意被召的人。'],
+      ['哥林多前書 13:4-5','愛是恆久忍耐，又有恩慈；愛是不嫉妒，愛是不自誇，不張狂，不求自己的益處，不輕易發怒，不計算人的惡。'],
+      ['馬太福音 11:28','凡勞苦擔重擔的人，可以到我這裡來，我就使你們得安息。'],
+      ['詩篇 118:24','這是耶和華所定的日子，我們在其中要高興歡喜。'],
+      ['約翰福音 15:13','人為朋友捨命，人的愛心沒有比這個大的。'],
+      ['箴言 3:5-6','你要專心仰賴耶和華，不可倚靠自己的聰明，在你一切所行的事上，都要認定他，他必指引你的路。'],
+      ['馬太福音 5:9','使人和睦的人有福了！因為他們必稱為神的兒子。'],
+    ];
+    let _lastVerseIdx = -1;
+    function loadBibleVerse() {
+      let idx;
+      do { idx = Math.floor(Math.random() * BIBLE_VERSES.length); } while(idx === _lastVerseIdx && BIBLE_VERSES.length > 1);
+      _lastVerseIdx = idx;
+      const [ref, text] = BIBLE_VERSES[idx];
+      document.getElementById('bible-text').textContent = '“' + text + '”';
+      document.getElementById('bible-ref').textContent = '— ' + ref;
+    }
+
     // ── TAB LOGIC ──
     function setActiveTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -668,6 +766,10 @@
       if (btn) { btn.classList.add('bg-white','text-emerald-600','shadow-md'); btn.classList.remove('text-gray-500'); btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
     }
     document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => setActiveTab(btn.dataset.tab)));
+
+    // 頁面載入時初始化
+    loadWeather();
+    loadBibleVerse();
 
     // ── CHAT LOGIC ──
     let chatOpen = false;
